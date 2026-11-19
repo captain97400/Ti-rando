@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="google-site-verification" content="gNEWPMv1_PIvZ949Tpd2HnHHFVBjRHK15_nKfI7q9SE" />
+<meta name="google-site-verification" content="1xntTthR3pf0zkg6zVRq96mP3GgvesWi5ndJgtyxATs" />
+<meta name="google-site-verification" content="kbwqI4jOUvGqHwlRxT0N6ialyUmV1IOwUEzNoLx-EMw" />
+<title>Ti Rando</title>
+<style>
+:root{
+  --bg:#f6f9f2; --card:#ffffff; --ink:#16301f; --muted:#4c6554;
+  --green:#1f5d3a; --green-soft:#dcebd9; --fire:#e8590c; --fire-soft:#ffe6d5;
+  --line:#c9d9c8; --alert:#b3261e;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1c14; --card:#18291d; --ink:#eef5ea; --muted:#a8bfae;
+    --green:#7fd19b; --green-soft:#21402c; --fire:#ff8a45; --fire-soft:#3d2414;
+    --line:#2f4a37; --alert:#ff8c84; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1c14; --card:#18291d; --ink:#eef5ea; --muted:#a8bfae;
+  --green:#7fd19b; --green-soft:#21402c; --fire:#ff8a45; --fire-soft:#3d2414;
+  --line:#2f4a37; --alert:#ff8c84; color-scheme:dark;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Trebuchet MS","Segoe UI",Verdana,sans-serif;font-size:17px;line-height:1.45;
+  padding-bottom:150px}
+header{padding:22px 18px 40px;background:var(--green);color:#fff;position:relative;
+  clip-path:ellipse(120% 100% at 50% 0%);border-radius:0 0 28px 28px}
+header h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:2rem;letter-spacing:.3px}
+header p{margin:4px 0 0;opacity:.9;font-size:.95rem}
+main{max-width:520px;margin:-22px auto 0;padding:0 14px;position:relative}
+section{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:14px}
+h2{margin:0 0 10px;font-size:1.05rem;color:var(--green)}
+label{display:block;font-weight:700;margin-bottom:6px}
+select,input[type=time]{width:100%;font:inherit;font-size:1.1rem;padding:13px 12px;border-radius:12px;
+  border:2px solid var(--line);background:var(--bg);color:var(--ink);min-height:50px}
+select:focus,input:focus,button:focus-visible{outline:3px solid var(--fire);outline-offset:2px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.meta{margin:10px 0 0;color:var(--muted);font-size:.95rem}
+.result{background:var(--fire);color:#fff;border-radius:20px;padding:20px 16px;text-align:center;margin-bottom:14px}
+.result small{display:block;font-size:.95rem;opacity:.95}
+.big{font-family:Georgia,serif;font-size:4.2rem;font-weight:700;line-height:1.05;margin:4px 0}
+.result .detail{font-size:.9rem;background:rgba(0,0,0,.18);border-radius:12px;padding:8px 10px;margin-top:10px}
+.warn{background:var(--alert)}
+ul{list-style:none;margin:0;padding:0}
+li label{display:flex;align-items:center;gap:12px;margin:0;padding:13px 6px;border-bottom:1px solid var(--line);
+  font-weight:400;cursor:pointer;min-height:52px}
+li:last-child label{border-bottom:0}
+li input{appearance:none;-webkit-appearance:none;width:28px;height:28px;flex:none;border:2px solid var(--green);
+  border-radius:8px;background:var(--bg);display:grid;place-content:center;margin:0}
+li input:checked{background:var(--green);border-color:var(--green)}
+li input:checked::after{content:"✓";color:#fff;font-weight:700;font-size:1.1rem}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) li input:checked::after{color:#0f1c14}}
+li input:checked + span{text-decoration:line-through;color:var(--muted)}
+.progress{height:10px;border-radius:6px;background:var(--green-soft);overflow:hidden;margin-bottom:6px}
+.progress i{display:block;height:100%;width:0;background:var(--green);transition:width .25s}
+.count{font-size:.9rem;color:var(--muted);margin:0 0 4px}
+.ready{margin:8px 0 0;font-weight:700;color:var(--green)}
+.sos{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--card);border-top:3px solid var(--alert);
+  padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));box-shadow:0 -6px 18px rgba(0,0,0,.12)}
+.sos h3{margin:0 0 8px;font-size:.95rem;color:var(--alert)}
+.sos div{display:grid;grid-template-columns:1fr 1.5fr;gap:10px;max-width:520px;margin:0 auto}
+.sos a{display:block;text-decoration:none;text-align:center;font-weight:700;padding:11px 6px;border-radius:14px;
+  background:var(--alert);color:#fff;line-height:1.2}
+.sos a span{display:block;font-weight:400;font-size:.75rem}
+.sos a.pghm{background:var(--green);}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .sos a{color:#0f1c14}}
+</style>
+</head>
+<body>
+<header>
+  <h1>⛰️ Ti Rando</h1>
+  <p>Pars tôt, rentre avant les nuages de 11h.</p>
+</header>
+
+<main>
+  <section>
+    <h2>1. Choisis ta randonnée</h2>
+    <label for="hike">Randonnée</label>
+    <select id="hike"></select>
+    <p class="meta" id="hikeInfo"></p>
+  </section>
+
+  <section>
+    <h2>2. Heure de retour à la voiture</h2>
+    <label for="back">Je veux être revenu à</label>
+    <input type="time" id="back" value="11:30">
+  </section>
+
+  <div class="result" id="result" aria-live="polite">
+    <small>Démarre la marche au plus tard à</small>
+    <div class="big" id="start">--:--</div>
+    <div class="detail" id="detail"></div>
+  </div>
+
+  <section>
+    <h2>3. Mon sac à dos</h2>
+    <div class="progress"><i id="bar"></i></div>
+    <p class="count" id="count"></p>
+    <ul id="list"></ul>
+    <p class="ready" id="ready"></p>
+  </section>
+</main>
+
+<nav class="sos" aria-label="Numéros d’urgence">
+  <h3>🆘 Urgence en montagne, La Réunion</h3>
+  <div>
+    <a href="tel:112">112<span>Urgence générale</span></a>
+    <a class="pghm" href="tel:0262930930">PGHM : 0262 93 09 30<span>Gendarmerie de Haute Montagne</span></a>
+  </div>
+</nav>
+
+<script>
+const HIKES=[
+  {n:"Piton de la Fournaise",h:5,t:"Volcan, départ du Pas de Bellecombe"},
+  {n:"Mafate par le Col des Bœufs",h:4,t:"Aller-retour depuis le Col des Bœufs"},
+  {n:"Cascade du Voile de la Mariée (Salazie)",h:2,t:"Balade courte, cirque de Salazie"},
+  {n:"Piton des Neiges",h:7,t:"Sommet de l’île, 3 070 m"},
+  {n:"La Roche Écrite",h:5.5,t:"Belvédère sur Mafate"}
+];
+const ITEMS=["2 L d’eau","Coupe-vent / imperméable","Crème solaire","Lampe frontale","Encas","Batterie externe"];
+const MARGIN=30;
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+const fmt=min=>{min=((Math.round(min)%1440)+1440)%1440;return pad(Math.floor(min/60))+":"+pad(min%60)};
+const dur=h=>{const m=Math.round(h*60);return Math.floor(m/60)+"h"+(m%60?pad(m%60):"")};
+
+const sel=$("hike");
+HIKES.forEach((k,i)=>{const o=document.createElement("option");o.value=i;o.textContent=k.n+" ("+dur(k.h)+")";sel.appendChild(o)});
+
+function calc(){
+  const k=HIKES[sel.value];
+  $("hikeInfo").textContent=k.t+" · durée A/R : "+dur(k.h);
+  const v=$("back").value||"11:30";
+  const [hh,mm]=v.split(":").map(Number);
+  const back=hh*60+mm;
+  const startMin=back-k.h*60-MARGIN;
+  const res=$("result");
+  $("start").textContent=fmt(startMin);
+  res.classList.toggle("warn",startMin<4*60);
+  const tot=dur(k.h+MARGIN/60);
+  $("detail").textContent=dur(k.h)+" de marche + 30 min de pauses = "+tot+" avant "+fmt(back)
+    +(startMin<4*60?" · Départ très tôt : prévois la frontale !":"");
+}
+sel.addEventListener("change",calc);
+$("back").addEventListener("input",calc);
+
+let state={};
+try{state=JSON.parse(localStorage.getItem("tirando-sac")||"{}")}catch(e){}
+const list=$("list");
+ITEMS.forEach((t,i)=>{
+  const li=document.createElement("li");
+  const lb=document.createElement("label");
+  const cb=document.createElement("input");cb.type="checkbox";cb.checked=!!state[i];
+  const sp=document.createElement("span");sp.textContent=t;
+  cb.addEventListener("change",()=>{state[i]=cb.checked;
+    try{localStorage.setItem("tirando-sac",JSON.stringify(state))}catch(e){}
+    upd()});
+  lb.append(cb,sp);li.appendChild(lb);list.appendChild(li);
+});
+function upd(){
+  const n=ITEMS.filter((_,i)=>state[i]).length;
+  $("bar").style.width=(n/ITEMS.length*100)+"%";
+  $("count").textContent=n+" sur "+ITEMS.length+" prêts";
+  $("ready").textContent=n===ITEMS.length?"✅ Sac prêt, bonne rando !":"";
+}
+calc();upd();
+</script>
+</body>
+</html>
